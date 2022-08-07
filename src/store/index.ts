@@ -17,7 +17,8 @@ export default createStore({
       return state.currentId
     },
     getCurrentContact(state) {
-      return state.currentContact
+      const currentContact = state.contacts.find(contact => contact.id === state.currentId)
+      return currentContact
     },
     getTotalContactsCount(state) {
       return state.contacts.length
@@ -26,14 +27,14 @@ export default createStore({
       return state.searchQuery
     },
     getSortedContacts(state) {
-      return state.contacts.sort((a,b) => {
+      return state.contacts.sort((a, b) => {
         const nameA = a.name.toLowerCase()
         const nameB = b.name.toLowerCase()
-        if(nameA < nameB) return -1
-        if(nameA > nameB) return 1
+        if (nameA < nameB) return -1
+        if (nameA > nameB) return 1
         return 0
       })
-    }
+    },
   },
   mutations: {
     SET_CONTACTS(state, payload) {
@@ -42,7 +43,7 @@ export default createStore({
     SET_CURRENT_ID(state, payload: string) {
       state.currentId = payload
     },
-    SET_CURRENT_CONTACT(state, payload: IContact) {
+    SET_CURRENT_CONTACT(state, payload?: IContact) {
       if (payload) {
         state.currentContact = payload
       } else {
@@ -58,8 +59,10 @@ export default createStore({
       localStorage.setItem('contacts', JSON.stringify(state.contacts))
     },
     REMOVE_CONTACT(state, payload: string) {
-      state.contacts = state.contacts.filter((contact) => contact.id !== payload)
-      localStorage.setItem('contacts', JSON.stringify(state.contacts))
+      if (payload) {
+        state.contacts = state.contacts.filter((contact) => contact.id !== payload)
+        localStorage.setItem('contacts', JSON.stringify(state.contacts))
+      }
     },
     UPDATE_CONTACT(state, payload: IContact) {
       const contact = state.contacts.find((item) => item.id === payload.id)

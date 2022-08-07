@@ -3,6 +3,7 @@
     <div class="title">
       <h1>Телефонная книга</h1>
     </div>
+    <router-link to="/"> Home </router-link>
     <div class="logo">
       <v-icon color="teal">mdi-book-open-outline</v-icon>
     </div>
@@ -13,11 +14,9 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  setup () {
-    
-
+  setup() {
     return {}
-  }
+  },
 })
 </script>
 

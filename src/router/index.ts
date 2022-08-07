@@ -9,7 +9,7 @@ const routes: Array<RouteRecordRaw> = [
     component: HomeView
   },
   {
-    path: '/',
+    path: '/addContact',
     name: 'form',
     component: FormView
   },
