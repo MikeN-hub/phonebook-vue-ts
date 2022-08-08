@@ -11,6 +11,7 @@
     </div>
     <button class="remove-btn" @click="onRemove">remove</button>
     <button class="remove-btn" @click="onUpdate">update</button>
+    <img :src="contact.photo" width="100" alt="" />
   </div>
 </template>
 
@@ -31,7 +32,8 @@ export default defineComponent({
   setup(props) {
     const store = useStore()
     const router = useRouter()
-    const {contact} = toRefs(props)
+    const { contact } = toRefs(props)
+
     const onRemove = () => {
       store.commit('REMOVE_CONTACT', contact.value.id)
     }
