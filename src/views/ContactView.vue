@@ -1,5 +1,5 @@
 <template>
-  <v-card class="ma-12">
+  <v-card :class="!xs ? 'ma-12' : ''">
     <v-card-title class="text-center">Карточка контакта</v-card-title>
     <v-card-text>
       <v-container>
@@ -11,26 +11,57 @@
             <h1>{{ currentContact.name }}</h1>
           </v-col>
         </v-row>
-        <v-row>
-          <v-col>
-            <v-input :messages="['Messages']" append-icon="mdi-close" prepend-icon="mdi-phone">
-              {{currentContact.surname}}
-            </v-input>
+        <v-row align="center" justify="center" class="bg-grey-lighten-1 mb-8">
+          <v-col v-show="isUpdating.surname" cols="8" md="2">
+            <input v-model="updContact.surname" />
+          </v-col>
+          <v-col v-show="!isUpdating.surname" cols="8" md="2">
+            <h4>{{ updContact.surname }}</h4>
+          </v-col>
+          <v-col cols="4" md="2" class="d-flex justify-center">
+            <v-btn
+              color="success"
+              size="x-small"
+              @click="() => (isUpdating.surname = !isUpdating.surname)"
+              :class="xs ? 'text-lowercase' : ''"
+              >{{ isUpdating.surname ? 'сохранить' : 'редактировать' }}</v-btn
+            >
+          </v-col>
+        </v-row>
+        <v-row align="center" justify="center" class="bg-grey-lighten-1 mb-8">
+          <v-col v-show="isUpdating.phone.mobile" cols="8" md="2">
+            <input type="text" v-show="isUpdating.phone.mobile" v-model="updContact.phone.mobile" />
+          </v-col>
+          <v-col cols="8" md="2" v-show="!isUpdating.phone.mobile">
+            <h4>{{ updContact.phone.mobile }}</h4>
+          </v-col>
+          <v-col cols="4" md="2" class="d-flex justify-center">
+            <v-btn
+              color="success"
+              size="x-small"
+              @click="() => (isUpdating.phone.mobile = !isUpdating.phone.mobile)"
+              :class="xs ? 'text-lowercase' : ''"
+              >{{ isUpdating.phone.mobile ? 'сохранить' : 'редактировать' }}</v-btn
+            >
           </v-col>
         </v-row>
       </v-container>
     </v-card-text>
-    <v-card-actions> </v-card-actions>
+    <v-card-actions>
+      
+    </v-card-actions>
   </v-card>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, ref, reactive, toRef } from 'vue'
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
+import { useDisplay } from 'vuetify'
 
 export default defineComponent({
   setup() {
+    const { xs, sm } = useDisplay()
     const store = useStore()
     const route = useRoute()
     const id = computed(() => {
@@ -41,9 +72,67 @@ export default defineComponent({
       return store.getters.getCurrentContact
     })
 
-    return { id, currentContact }
+    const isUpdating = reactive({
+      photo: false,
+      name: false,
+      surname: false,
+      phone: {
+        mobile: false,
+        work: false,
+        additional: false,
+      },
+      email: {
+        personal: false,
+        work: false,
+        additional: false,
+      },
+      social: {
+        telegram: false,
+        whatsapp: false,
+        vk: false,
+        instagram: false,
+      },
+      birthday: false,
+      note: false,
+    })
+
+    const updContact = reactive({
+      id: currentContact.value.id,
+      photo: currentContact.value.photo,
+      name: currentContact.value.name,
+      surname: currentContact.value.surname,
+      phone: {
+        mobile: currentContact.value.phone.mobile,
+        work: currentContact.value.phone.work,
+        additional: currentContact.value.phone.additional,
+      },
+      email: {
+        personal: currentContact.value.email.personal,
+        work: currentContact.value.email.work,
+        additional: currentContact.value.email.additional,
+      },
+      social: {
+        telegram: currentContact.value.social.telegram,
+        whatsapp: currentContact.value.social.whatsapp,
+        vk: currentContact.value.social.vk,
+        instagram: currentContact.value.social.instagram,
+      },
+      birthday: currentContact.value.birthday,
+      note: currentContact.value.note,
+    })
+
+    return { id, currentContact, isUpdating, xs, sm, updContact }
   },
 })
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+input {
+  border: 1px solid black;
+  border-radius: 0.5rem;
+  padding: 0.3rem;
+}
+h4 {
+  padding: 0.3rem;
+}
+</style>
