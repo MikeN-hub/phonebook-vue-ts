@@ -1,18 +1,20 @@
 <template>
-  <div class="contactItem">
-    <div class="name">
-      {{ contact.name }}
+  <v-row>
+    <div class="contactItem">
+      <div class="name">
+        {{ contact.name }}
+      </div>
+      <div class="name">
+        {{ contact.surname }}
+      </div>
+      <div class="name">
+        {{ contact.phone.mobile }}
+      </div>
+      <button class="remove-btn" @click="onRemove">remove</button>
+      <button class="remove-btn" @click="onUpdate">update</button>
+      <img :src="contact.photo" width="100" alt="" />
     </div>
-    <div class="name">
-      {{ contact.surname }}
-    </div>
-    <div class="name">
-      {{ contact.phone.mobile }}
-    </div>
-    <button class="remove-btn" @click="onRemove">remove</button>
-    <button class="remove-btn" @click="onUpdate">update</button>
-    <img :src="contact.photo" width="100" alt="" />
-  </div>
+  </v-row>
 </template>
 
 <script lang="ts">

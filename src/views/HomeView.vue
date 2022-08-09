@@ -1,44 +1,50 @@
 <template>
-  <div>
-    <div class="panel">
-      <h2>Список контактов: ({{ TotalContactsCount }})</h2>
-      <SearchBar />
-      <button @click="$router.push('./addContact')">Создать новый контакт</button>
-    </div>
-    <ContactList />
-  </div>
+  <v-container>
+    <v-row align="center" justify="space-around" class="mt-1" no-gutters>
+      <v-col cols="12" md="4" class="d-flex justify-center">
+        <v-badge :content="TotalContactsCount" color="success" floating>
+          <h2 class="text-center">Список контактов:</h2>
+        </v-badge>
+      </v-col>
+      <v-col cols="12" sm="6" md="4">
+        <v-text-field
+          v-model="searchQuery"
+          variant="solo"
+          density="compact"
+          prepend-inner-icon="mdi-magnify"
+          counter
+          label="Search"
+          clearable
+          placeholder="Поиск контакта..."
+        >
+        </v-text-field>
+      </v-col>
+      <v-col cols="12" sm="6" md="4" class="d-flex justify-center mb-3">
+        <v-btn color="success" to="./addContact">Создать контакт</v-btn>
+      </v-col>
+    </v-row>
+    <ContactList :searchQuery="searchQuery"/>
+  </v-container>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, ref } from 'vue'
 import { useStore } from 'vuex'
 import ContactList from '@/components/ContactList.vue'
-import SearchBar from '@/components/SearchBar.vue'
 
 export default defineComponent({
   name: 'HomeView',
-  components: { ContactList, SearchBar },
+  components: { ContactList },
 
   setup() {
     const store = useStore()
     const TotalContactsCount = computed(() => store.getters.getTotalContactsCount)
+    const searchQuery = ref()
 
-    return { TotalContactsCount }
+    return { TotalContactsCount, searchQuery }
   },
 })
 </script>
 
 <style lang="scss" scoped>
-.panel {
-  display: flex;
-  align-items: center;
-  gap: 5rem;
-  margin-bottom: 1rem;
-}
-button {
-  border: 1px solid teal;
-  border-radius: 10px;
-  padding: 0.2rem 0.5rem;
-  color: teal;
-}
 </style>

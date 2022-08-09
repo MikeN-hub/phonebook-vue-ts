@@ -14,7 +14,7 @@ export type TypeSocial = {
   telegram: string
   whatsapp: string
   vk: string
-  instagramm: string
+  instagram: string
 }
 
 export default interface IContact {
@@ -49,7 +49,7 @@ export const initialState: IContact[] = [
       telegram: 'telegram',
       whatsapp: '',
       vk: '',
-      instagramm: '',
+      instagram: '',
     },
     birthday: '21-09-1979',
     note: '',
@@ -73,7 +73,7 @@ export const initialState: IContact[] = [
       telegram: 'telegram',
       whatsapp: '',
       vk: '',
-      instagramm: '',
+      instagram: '',
     },
     birthday: '15-07-1980',
     note: '',
@@ -97,9 +97,34 @@ export const initialState: IContact[] = [
       telegram: 'telegram',
       whatsapp: '',
       vk: '',
-      instagramm: '',
+      instagram: '',
     },
     birthday: '12-02-1992',
     note: '',
   },
 ]
+
+export const emptyContact: IContact = {
+  id: '',
+  photo: '',
+  name: '',
+  surname: '',
+  phone: {
+    mobile: '',
+    work: '',
+    additional: '',
+  },
+  email: {
+    personal: '',
+    work: '',
+    additional: '',
+  },
+  social: {
+    telegram: '',
+    whatsapp: '',
+    vk: '',
+    instagram: '',
+  },
+  birthday: '',
+  note: '',
+}

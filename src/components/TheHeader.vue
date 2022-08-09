@@ -1,13 +1,21 @@
 <template>
-  <header>
-    <div class="title">
-      <h1>Телефонная книга</h1>
-    </div>
-    <router-link to="/"> Home </router-link>
-    <div class="logo">
-      <v-icon color="teal">mdi-book-open-outline</v-icon>
-    </div>
-  </header>
+  <v-container>
+    <v-btn
+      icon="mdi-book-open-outline"
+      color="teal"
+      size="x-large"
+      @click="$router.push('/')"
+    ></v-btn>
+    <v-app-bar-title>
+      <h1 class="text-h4 text-teal">Телефонная книга</h1>
+    </v-app-bar-title>
+    <v-btn
+      href="https://github.com/MikeN-hub"
+      target="_blank"
+      icon="mdi-github"
+      size="x-large"
+    ></v-btn>
+  </v-container>
 </template>
 
 <script lang="ts">
@@ -20,10 +28,4 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss" scoped>
-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-}
-</style>
+<style lang="scss" scoped></style>

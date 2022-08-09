@@ -1,5 +1,5 @@
 <template>
-  <v-form @submit.prevent="onSubmit" ref="form">
+  <v-form @submit.prevent="onSubmit" ref="refForm" v-model="valid">
     <v-container>
       <v-row align="center" justify="space-around">
         <v-col cols="12" sm="6">
@@ -154,7 +154,20 @@
           <v-text-field v-model="state.note" prepend-icon="mdi-text" label="Заметки"></v-text-field>
         </v-col>
       </v-row>
-      <v-btn type="submit">Submit Form</v-btn>
+      <v-row align="center" justify="space-around">
+        <v-col cols="6" sm="3">
+          <v-btn type="submit">Сохранить контакт</v-btn>
+        </v-col>
+        <v-col cols="6" sm="3">
+          <v-btn @click="onCancel">Отмена</v-btn>
+        </v-col>
+      </v-row>
+      <v-alert type="warning" closable density="compact" v-model="showAlert" class="mt-2">
+        <v-alert-title>
+          Вы уверены что хотите выйти?
+          <v-btn @click="$router.push('/')" color="red">Да</v-btn></v-alert-title
+        >
+      </v-alert>
     </v-container>
   </v-form>
 </template>
@@ -166,11 +179,11 @@ import { useRouter } from 'vue-router'
 import { useDisplay } from 'vuetify'
 import { mustBeLatin } from '@/helpers/helpers'
 import { mustBeDigits } from '@/helpers/helpers'
-import { isValidHttpUrl } from '@/helpers/helpers'
 import { v4 as uuidv4 } from 'uuid'
 
 export default defineComponent({
   setup() {
+    const router = useRouter()
     const store = useStore()
     const { name } = useDisplay()
     const density = computed(() => {
@@ -219,8 +232,8 @@ export default defineComponent({
       }
     }
 
-    const state = reactive({
-      id: uuidv4(),
+    let state = reactive({
+      id: '',
       photo: '',
       name: '',
       surname: '',
@@ -253,18 +266,26 @@ export default defineComponent({
       reader.readAsDataURL(e.target.files[0])
     }
 
-    const form = ref()
+    const refForm: any = ref()
+    const valid = ref(true)
 
     const onSubmit = async () => {
-      let result = await form.value.validate()
+      let result = await refForm.value.validate()
       if (result.valid) {
+        state.id = uuidv4()
         store.commit('ADD_CONTACT', state)
       }
+      router.push('/')
+    }
+
+    const showAlert = ref(false)
+    const onCancel = () => {
+      showAlert.value = true
     }
 
     return {
       rules,
-      form,
+      refForm,
       state,
       uploadImage,
       checkEmail,
@@ -272,6 +293,9 @@ export default defineComponent({
       density,
       avatarSize,
       onSubmit,
+      valid,
+      onCancel,
+      showAlert,
     }
   },
 })
