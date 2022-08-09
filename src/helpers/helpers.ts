@@ -10,7 +10,6 @@ export const mustBeDigits = (value: string) => {
 
 export const isValidHttpUrl = (str: string) => {
   let url
-
   try {
     url = new URL(str)
   } catch (_) {

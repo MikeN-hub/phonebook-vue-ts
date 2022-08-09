@@ -104,6 +104,7 @@
           <v-text-field
             v-model="state.email.additional"
             @keydown="checkEmail"
+            :rules="rules.emailRules"
             :density="density"
             prepend-icon="mdi-email"
             label="Дополнительная Почта"
@@ -144,12 +145,10 @@
             v-model="state.birthday"
             prepend-icon="mdi-cake-layered"
             label="День рождения"
+            type="date"
           >
           </v-text-field>
         </v-col>
-        <!-- <v-col cols="12" sm="4">
-          <input type="date" v-model="state.birthday" placeholder="День рождения" />
-        </v-col> -->
         <v-col cols="12" sm="4">
           <v-text-field v-model="state.note" prepend-icon="mdi-text" label="Заметки"></v-text-field>
         </v-col>
@@ -173,13 +172,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive, onMounted, computed, watch } from 'vue'
+import { defineComponent, ref, reactive, computed } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 import { useDisplay } from 'vuetify'
 import { mustBeLatin } from '@/helpers/helpers'
 import { mustBeDigits } from '@/helpers/helpers'
 import { v4 as uuidv4 } from 'uuid'
+import {isValidHttpUrl} from '@/helpers/helpers'
+import {TypeSocial} from '@/Models/Icontact'
 
 export default defineComponent({
   setup() {
@@ -273,6 +274,13 @@ export default defineComponent({
       let result = await refForm.value.validate()
       if (result.valid) {
         state.id = uuidv4()
+        // for(let key in state.social) {
+        //   if(isValidHttpUrl(state.social[key as keyof TypeSocial])) {
+        //     console.log(key, state.social[key as keyof TypeSocial], 'yes');
+        //   }else{
+        //     console.log(key, state.social[key as keyof TypeSocial], 'no');
+        //   }
+        // }
         store.commit('ADD_CONTACT', state)
       }
       router.push('/')

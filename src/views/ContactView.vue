@@ -45,11 +45,79 @@
             >
           </v-col>
         </v-row>
+        <v-row align="center" justify="center" class="bg-grey-lighten-1 mb-8">
+          <v-col cols="6">Телефон рабочий</v-col>
+          <v-col cols="6">{{ updContact.phone.work }}</v-col>
+        </v-row>
+        <v-row align="center" justify="center" class="bg-grey-lighten-1 mb-8">
+          <v-col cols="6">Телефон Дополнительный</v-col>
+          <v-col cols="6">{{ updContact.phone.additional }}</v-col>
+        </v-row>
+        <v-row align="center" justify="center" class="bg-grey-lighten-1 mb-8">
+          <v-col cols="6">Почта личная</v-col>
+          <v-col cols="6">{{ updContact.email.personal }}</v-col>
+        </v-row>
+        <v-row align="center" justify="center" class="bg-grey-lighten-1 mb-8">
+          <v-col cols="6">Почта рабочая</v-col>
+          <v-col cols="6">{{ updContact.email.work }}</v-col>
+        </v-row>
+        <v-row align="center" justify="center" class="bg-grey-lighten-1 mb-8">
+          <v-col cols="6">Почта дополнительная</v-col>
+          <v-col cols="6">{{ updContact.email.additional }}</v-col>
+        </v-row>
+        <v-row align="center" justify="center" class="bg-grey-lighten-1 mb-8">
+          <v-col cols="6">Телеграм</v-col>
+          <v-col cols="6">
+            <a
+              v-if="isValidHttpUrl(updContact.social.telegram)"
+              :href="updContact.social.telegram"
+              target="_blank"
+              >{{ updContact.social.telegram }}</a
+            >
+            <p v-else>{{ updContact.social.telegram }}</p>
+          </v-col>
+        </v-row>
+        <v-row align="center" justify="center" class="bg-grey-lighten-1 mb-8">
+          <v-col cols="6">Вотсапп</v-col>
+          <v-col cols="6">
+            <a
+              v-if="isValidHttpUrl(updContact.social.whatsapp)"
+              :href="updContact.social.whatsapp"
+              target="_blank"
+              >{{ updContact.social.whatsapp }}</a
+            >
+            <p v-else>{{ updContact.social.whatsapp }}</p>
+          </v-col>
+        </v-row>
+        <v-row align="center" justify="center" class="bg-grey-lighten-1 mb-8">
+          <a
+            v-if="isValidHttpUrl(updContact.social.vk)"
+            :href="updContact.social.vk"
+            target="_blank"
+            >{{ updContact.social.vk }}</a
+          >
+          <p v-else>{{ updContact.social.vk }}</p>
+        </v-row>
+        <v-row align="center" justify="center" class="bg-grey-lighten-1 mb-8">
+          <a
+            v-if="isValidHttpUrl(updContact.social.instagram)"
+            :href="updContact.social.instagram"
+            target="_blank"
+            >{{ updContact.social.instagram }}</a
+          >
+          <p v-else>{{ updContact.social.instagram }}</p>
+        </v-row>
+        <v-row align="center" justify="center" class="bg-grey-lighten-1 mb-8">
+          <v-col cols="6">День рождения</v-col>
+          <v-col cols="6">{{ updContact.birthday }}</v-col>
+        </v-row>
+        <v-row align="center" justify="center" class="bg-grey-lighten-1 mb-8">
+          <v-col cols="6">Заметки</v-col>
+          <v-col cols="6">{{ updContact.note }}</v-col>
+        </v-row>
       </v-container>
     </v-card-text>
-    <v-card-actions>
-      
-    </v-card-actions>
+    <v-card-actions> </v-card-actions>
   </v-card>
 </template>
 
@@ -58,6 +126,7 @@ import { defineComponent, computed, ref, reactive, toRef } from 'vue'
 import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import { useDisplay } from 'vuetify'
+import { isValidHttpUrl } from '@/helpers/helpers'
 
 export default defineComponent({
   setup() {
@@ -120,8 +189,10 @@ export default defineComponent({
       birthday: currentContact.value.birthday,
       note: currentContact.value.note,
     })
+    console.log(updContact.social.whatsapp)
+    console.log(isValidHttpUrl(updContact.social.whatsapp))
 
-    return { id, currentContact, isUpdating, xs, sm, updContact }
+    return { id, currentContact, isUpdating, xs, sm, updContact, isValidHttpUrl }
   },
 })
 </script>
@@ -134,5 +205,8 @@ input {
 }
 h4 {
   padding: 0.3rem;
+}
+p {
+  cursor: pointer;
 }
 </style>
