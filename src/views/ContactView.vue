@@ -1,124 +1,154 @@
 <template>
-  <v-card :class="!xs ? 'ma-12' : ''">
-    <v-card-title class="text-center">Карточка контакта</v-card-title>
-    <v-card-text>
-      <v-container>
-        <v-row align="center" justify="center">
-          <v-col cols="12" sm="6" md="3" class="d-flex justify-center">
-            <v-avatar size="256" :image="currentContact.photo"> </v-avatar>
-          </v-col>
-          <v-col cols="12" sm="6" md="3" class="d-flex justify-center">
-            <h1>{{ currentContact.name }}</h1>
-          </v-col>
-        </v-row>
-        <v-row align="center" justify="center" class="bg-grey-lighten-1 mb-8">
-          <v-col v-show="isUpdating.surname" cols="8" md="2">
-            <input v-model="updContact.surname" />
-          </v-col>
-          <v-col v-show="!isUpdating.surname" cols="8" md="2">
-            <h4>{{ updContact.surname }}</h4>
-          </v-col>
-          <v-col cols="4" md="2" class="d-flex justify-center">
-            <v-btn
-              color="success"
-              size="x-small"
-              @click="() => (isUpdating.surname = !isUpdating.surname)"
-              :class="xs ? 'text-lowercase' : ''"
-              >{{ isUpdating.surname ? 'сохранить' : 'редактировать' }}</v-btn
-            >
-          </v-col>
-        </v-row>
-        <v-row align="center" justify="center" class="bg-grey-lighten-1 mb-8">
-          <v-col v-show="isUpdating.phone.mobile" cols="8" md="2">
-            <input type="text" v-show="isUpdating.phone.mobile" v-model="updContact.phone.mobile" />
-          </v-col>
-          <v-col cols="8" md="2" v-show="!isUpdating.phone.mobile">
-            <h4>{{ updContact.phone.mobile }}</h4>
-          </v-col>
-          <v-col cols="4" md="2" class="d-flex justify-center">
-            <v-btn
-              color="success"
-              size="x-small"
-              @click="() => (isUpdating.phone.mobile = !isUpdating.phone.mobile)"
-              :class="xs ? 'text-lowercase' : ''"
-              >{{ isUpdating.phone.mobile ? 'сохранить' : 'редактировать' }}</v-btn
-            >
-          </v-col>
-        </v-row>
-        <v-row align="center" justify="center" class="bg-grey-lighten-1 mb-8">
-          <v-col cols="6">Телефон рабочий</v-col>
-          <v-col cols="6">{{ updContact.phone.work }}</v-col>
-        </v-row>
-        <v-row align="center" justify="center" class="bg-grey-lighten-1 mb-8">
-          <v-col cols="6">Телефон Дополнительный</v-col>
-          <v-col cols="6">{{ updContact.phone.additional }}</v-col>
-        </v-row>
-        <v-row align="center" justify="center" class="bg-grey-lighten-1 mb-8">
-          <v-col cols="6">Почта личная</v-col>
-          <v-col cols="6">{{ updContact.email.personal }}</v-col>
-        </v-row>
-        <v-row align="center" justify="center" class="bg-grey-lighten-1 mb-8">
-          <v-col cols="6">Почта рабочая</v-col>
-          <v-col cols="6">{{ updContact.email.work }}</v-col>
-        </v-row>
-        <v-row align="center" justify="center" class="bg-grey-lighten-1 mb-8">
-          <v-col cols="6">Почта дополнительная</v-col>
-          <v-col cols="6">{{ updContact.email.additional }}</v-col>
-        </v-row>
-        <v-row align="center" justify="center" class="bg-grey-lighten-1 mb-8">
-          <v-col cols="6">Телеграм</v-col>
-          <v-col cols="6">
+  <v-form>
+    <v-card :class="!xs ? 'ma-12' : ''">
+      <v-card-title class="text-center">Карточка контакта</v-card-title>
+      <v-card-text>
+        <v-container>
+          <v-row align="center" justify="center" class="mb-2">
+            <v-col cols="6" class="d-flex justify-center">
+              <v-avatar :size="xs ? '128' : '256'" :image="currentContact.photo"> </v-avatar>
+            </v-col>
+            <v-col cols="6">
+              <div class="d-flex flex-column align-center">
+                <v-text-field
+                  v-if="isUpdating.name"
+                  class="mb-3 w-100"
+                  hide-details
+                  single-line
+                  density="compact"
+                  label="Имя"
+                  v-model="updContact.name"
+                >
+                </v-text-field>
+                <p
+                  v-else
+                  class="text-h6 text-sm-h5 text-md-h4 text-lg-h4 mb-3 d-flex align-center w-100 bg-grey-lighten-4 my-height"
+                >
+                  {{ currentContact.name }}
+                </p>
+                <v-btn
+                  @click="isUpdating.name = !isUpdating.name"
+                  max-width="100"
+                  size="small"
+                  color="success"
+                  >изменить</v-btn
+                >
+              </div>
+            </v-col>
+          </v-row>
+          <v-row align="center" justify="center" class="bg-grey-lighten-1 mb-8">
+            <v-col v-show="isUpdating.surname" cols="8" md="2">
+              <input v-model="updContact.surname" />
+            </v-col>
+            <v-col v-show="!isUpdating.surname" cols="8" md="2">
+              <h4>{{ updContact.surname }}</h4>
+            </v-col>
+            <v-col cols="4" md="2" class="d-flex justify-center">
+              <v-btn
+                color="success"
+                size="x-small"
+                @click="() => (isUpdating.surname = !isUpdating.surname)"
+                :class="xs ? 'text-lowercase' : ''"
+                >{{ isUpdating.surname ? 'сохранить' : 'редактировать' }}</v-btn
+              >
+            </v-col>
+          </v-row>
+          <v-row align="center" justify="center" class="bg-grey-lighten-1 mb-8">
+            <v-col v-show="isUpdating.phone.mobile" cols="8" md="2">
+              <input
+                type="text"
+                v-show="isUpdating.phone.mobile"
+                v-model="updContact.phone.mobile"
+              />
+            </v-col>
+            <v-col cols="8" md="2" v-show="!isUpdating.phone.mobile">
+              <h4>{{ updContact.phone.mobile }}</h4>
+            </v-col>
+            <v-col cols="4" md="2" class="d-flex justify-center">
+              <v-btn
+                color="success"
+                size="x-small"
+                @click="() => (isUpdating.phone.mobile = !isUpdating.phone.mobile)"
+                :class="xs ? 'text-lowercase' : ''"
+                >{{ isUpdating.phone.mobile ? 'сохранить' : 'редактировать' }}</v-btn
+              >
+            </v-col>
+          </v-row>
+          <v-row align="center" justify="center" class="bg-grey-lighten-1 mb-8">
+            <v-col cols="6">Телефон рабочий</v-col>
+            <v-col cols="6">{{ updContact.phone.work }}</v-col>
+          </v-row>
+          <v-row align="center" justify="center" class="bg-grey-lighten-1 mb-8">
+            <v-col cols="6">Телефон Дополнительный</v-col>
+            <v-col cols="6">{{ updContact.phone.additional }}</v-col>
+          </v-row>
+          <v-row align="center" justify="center" class="bg-grey-lighten-1 mb-8">
+            <v-col cols="6">Почта личная</v-col>
+            <v-col cols="6">{{ updContact.email.personal }}</v-col>
+          </v-row>
+          <v-row align="center" justify="center" class="bg-grey-lighten-1 mb-8">
+            <v-col cols="6">Почта рабочая</v-col>
+            <v-col cols="6">{{ updContact.email.work }}</v-col>
+          </v-row>
+          <v-row align="center" justify="center" class="bg-grey-lighten-1 mb-8">
+            <v-col cols="6">Почта дополнительная</v-col>
+            <v-col cols="6">{{ updContact.email.additional }}</v-col>
+          </v-row>
+          <v-row align="center" justify="center" class="bg-grey-lighten-1 mb-8">
+            <v-col cols="6">Телеграм</v-col>
+            <v-col cols="6">
+              <a
+                v-if="isValidHttpUrl(updContact.social.telegram)"
+                :href="updContact.social.telegram"
+                target="_blank"
+                >{{ updContact.social.telegram }}</a
+              >
+              <p v-else>{{ updContact.social.telegram }}</p>
+            </v-col>
+          </v-row>
+          <v-row align="center" justify="center" class="bg-grey-lighten-1 mb-8">
+            <v-col cols="6">Вотсапп</v-col>
+            <v-col cols="6">
+              <a
+                v-if="isValidHttpUrl(updContact.social.whatsapp)"
+                :href="updContact.social.whatsapp"
+                target="_blank"
+                >{{ updContact.social.whatsapp }}</a
+              >
+              <p v-else>{{ updContact.social.whatsapp }}</p>
+            </v-col>
+          </v-row>
+          <v-row align="center" justify="center" class="bg-grey-lighten-1 mb-8">
             <a
-              v-if="isValidHttpUrl(updContact.social.telegram)"
-              :href="updContact.social.telegram"
+              v-if="isValidHttpUrl(updContact.social.vk)"
+              :href="updContact.social.vk"
               target="_blank"
-              >{{ updContact.social.telegram }}</a
+              >{{ updContact.social.vk }}</a
             >
-            <p v-else>{{ updContact.social.telegram }}</p>
-          </v-col>
-        </v-row>
-        <v-row align="center" justify="center" class="bg-grey-lighten-1 mb-8">
-          <v-col cols="6">Вотсапп</v-col>
-          <v-col cols="6">
+            <p v-else>{{ updContact.social.vk }}</p>
+          </v-row>
+          <v-row align="center" justify="center" class="bg-grey-lighten-1 mb-8">
             <a
-              v-if="isValidHttpUrl(updContact.social.whatsapp)"
-              :href="updContact.social.whatsapp"
+              v-if="isValidHttpUrl(updContact.social.instagram)"
+              :href="updContact.social.instagram"
               target="_blank"
-              >{{ updContact.social.whatsapp }}</a
+              >{{ updContact.social.instagram }}</a
             >
-            <p v-else>{{ updContact.social.whatsapp }}</p>
-          </v-col>
-        </v-row>
-        <v-row align="center" justify="center" class="bg-grey-lighten-1 mb-8">
-          <a
-            v-if="isValidHttpUrl(updContact.social.vk)"
-            :href="updContact.social.vk"
-            target="_blank"
-            >{{ updContact.social.vk }}</a
-          >
-          <p v-else>{{ updContact.social.vk }}</p>
-        </v-row>
-        <v-row align="center" justify="center" class="bg-grey-lighten-1 mb-8">
-          <a
-            v-if="isValidHttpUrl(updContact.social.instagram)"
-            :href="updContact.social.instagram"
-            target="_blank"
-            >{{ updContact.social.instagram }}</a
-          >
-          <p v-else>{{ updContact.social.instagram }}</p>
-        </v-row>
-        <v-row align="center" justify="center" class="bg-grey-lighten-1 mb-8">
-          <v-col cols="6">День рождения</v-col>
-          <v-col cols="6">{{ updContact.birthday }}</v-col>
-        </v-row>
-        <v-row align="center" justify="center" class="bg-grey-lighten-1 mb-8">
-          <v-col cols="6">Заметки</v-col>
-          <v-col cols="6">{{ updContact.note }}</v-col>
-        </v-row>
-      </v-container>
-    </v-card-text>
-    <v-card-actions> </v-card-actions>
-  </v-card>
+            <p v-else>{{ updContact.social.instagram }}</p>
+          </v-row>
+          <v-row align="center" justify="center" class="bg-grey-lighten-1 mb-8">
+            <v-col cols="6">День рождения</v-col>
+            <v-col cols="6">{{ updContact.birthday }}</v-col>
+          </v-row>
+          <v-row align="center" justify="center" class="bg-grey-lighten-1 mb-8">
+            <v-col cols="6">Заметки</v-col>
+            <v-col cols="6">{{ updContact.note }}</v-col>
+          </v-row>
+        </v-container>
+      </v-card-text>
+      <v-card-actions> </v-card-actions>
+    </v-card>
+  </v-form>
 </template>
 
 <script lang="ts">
@@ -127,6 +157,8 @@ import { useRoute } from 'vue-router'
 import { useStore } from 'vuex'
 import { useDisplay } from 'vuetify'
 import { isValidHttpUrl } from '@/helpers/helpers'
+import useVuelidate from '@vuelidate/core'
+import { required, email } from '@vuelidate/validators'
 
 export default defineComponent({
   setup() {
@@ -198,15 +230,18 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-input {
-  border: 1px solid black;
-  border-radius: 0.5rem;
-  padding: 0.3rem;
-}
-h4 {
-  padding: 0.3rem;
-}
-p {
-  cursor: pointer;
+// input {
+//   border: 1px solid black;
+//   border-radius: 0.5rem;
+//   padding: 0.3rem;
+// }
+// h4 {
+//   padding: 0.3rem;
+// }
+// p {
+//   cursor: pointer;
+// }
+.my-height {
+  height: 40px;
 }
 </style>

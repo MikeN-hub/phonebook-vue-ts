@@ -33,7 +33,6 @@
             label="Имя"
           ></v-text-field>
         </v-col>
-
         <v-col cols="12" sm="6">
           <v-text-field
             v-model="state.surname"
