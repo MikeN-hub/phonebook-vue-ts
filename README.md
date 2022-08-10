@@ -1,24 +1,14 @@
 # phonebook-ts
 
-## Project setup
-```
+Hello everyone!
+This project was built with Vue 3, TypeScript, VueX, Vue-router and Vuetify.
+To explore you have to to make some generally known steps, namely:
+
+git clone git@github.com:MikeN-hub/phonebook-vue-ts.git
+(or git clone https://github.com/MikeN-hub/phonebook-vue-ts.git)
 npm install
-```
-
-### Compiles and hot-reloads for development
-```
 npm run serve
-```
+open browser at port http://localhost:8080
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+That's it.
+Have a nice day!

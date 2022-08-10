@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'uuid'
+
 export type TypePhone = {
   mobile: string
   work: string
@@ -31,76 +33,77 @@ export default interface IContact {
 
 export const initialState: IContact[] = [
   {
-    id: '1',
+    id: uuidv4(),
     photo: '',
     name: 'Mike',
     surname: 'Tyson',
     phone: {
       mobile: '+79501234567',
-      work: '',
-      additional: '',
+      work: '223344',
+      additional: '334455',
     },
     email: {
       personal: 'm.tyson@gmail.com',
-      work: '',
-      additional: '',
+      work: 'm.tyson@yandex.ru',
+      additional: 'm.tyson@mail.ru',
     },
     social: {
-      telegram: 'telegram',
-      whatsapp: '',
-      vk: '',
-      instagram: '',
+      telegram: '@mike_tyson',
+      whatsapp: 'https://miketyson.com/',
+      vk: 'tyson-vk',
+      instagram: 'tyson-insta',
     },
-    birthday: '21-09-1979',
-    note: '',
+    birthday: '30-06-1966',
+    note: 'uniq boxer',
   },
+
   {
-    id: '2',
+    id: uuidv4(),
     photo: '',
-    name: 'Bred',
-    surname: 'Traversy',
+    name: 'Mikle',
+    surname: 'Jordan',
     phone: {
-      mobile: '+79525556667',
-      work: '',
-      additional: '',
+      mobile: '+79116789532',
+      work: '657849',
+      additional: '321567',
     },
     email: {
-      personal: 'brad.traversy@gmail.com',
-      work: '',
-      additional: '',
+      personal: 'm.jordan@gmail.com',
+      work: 'm.jordan@yandex.ru',
+      additional: 'm.jordan@mail.ru',
     },
     social: {
-      telegram: 'telegram',
-      whatsapp: '',
-      vk: '',
-      instagram: '',
+      telegram: '@mikle_jordan',
+      whatsapp: 'https://www.michaeljordansworld.com/',
+      vk: 'jordan-vk',
+      instagram: 'jordan-insta',
     },
-    birthday: '15-07-1980',
+    birthday: '17-02-1963',
     note: '',
   },
   {
     id: '3',
     photo: '',
-    name: 'Aaron',
-    surname: 'Gordon',
+    name: 'Michael',
+    surname: 'Phelps',
     phone: {
       mobile: '+79525559897',
       work: '',
       additional: '',
     },
     email: {
-      personal: 'aarongordon@gmail.com',
-      work: '',
-      additional: '',
+      personal: 'm.phelps@gmail.com',
+      work: 'm.phelps@yandex.ru',
+      additional: 'm.phelps@mail.com',
     },
     social: {
-      telegram: 'telegram',
-      whatsapp: '',
-      vk: '',
-      instagram: '',
+      telegram: '@mphelps',
+      whatsapp: 'https://michaelphelpsfoundation.org/',
+      vk: 'Phelps-vk',
+      instagram: 'Phelps-vk',
     },
-    birthday: '12-02-1992',
-    note: '',
+    birthday: '30-06-1985',
+    note: 'great professional swimmer',
   },
 ]
 

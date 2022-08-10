@@ -6,15 +6,16 @@
         <v-container>
           <v-row align="center" justify="center" class="mb-2">
             <v-col cols="6" class="d-flex justify-space-around align-center">
-              <v-avatar :size="xs ? '128' : '256'" :image="currentContact.photo"> </v-avatar>
+              <v-avatar :size="xs ? '128' : '256'">
+                <v-img :src="currentContact.photo" cover></v-img>
+              </v-avatar>
               <v-btn
                 @click="isUpdating.photo = !isUpdating.photo"
                 :color="isUpdating.photo ? 'success' : 'warning'"
                 size="small"
                 icon="mdi-movie-open-edit-outline"
                 :class="xs ? 'text-lowercase' : ''"
-                ></v-btn
-              >
+              ></v-btn>
             </v-col>
             <v-col cols="6">
               <div class="d-flex flex-column align-center">
@@ -665,9 +666,7 @@ export default defineComponent({
 
     const onSubmit = async () => {
       let result = await refForm.value.validate()
-      console.log(result)
       if (result.valid) {
-        console.log('submited')
         store.commit('UPDATE_CONTACT', updContact)
       }
     }
