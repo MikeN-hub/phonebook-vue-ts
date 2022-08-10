@@ -11,7 +11,7 @@
         <h1 class="text-teal text-center text-h6 text-sm-h5 text-md-h4 text-lg-h3">Телефонная книга</h1>
       </v-app-bar-title>
       <v-btn
-        href="https://github.com/MikeN-hub"
+        href="https://github.com/MikeN-hub/phonebook-vue-ts"
         target="_blank"
         icon="mdi-github"
         size="x-large"

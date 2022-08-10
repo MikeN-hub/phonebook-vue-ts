@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-row v-for="contact in contacts" :key="contact.id" align="center" class="mb-1">
+    <v-row v-for="contact in contacts" :key="contact.id" align="center" class="mb-1 bg-grey-lighten-4 rounded-pill mb-6">
       <v-col cols="2" v-if="!xs">
         <v-avatar @click="$router.push(`contact/${contact.id}`)">
           <v-img :src="contact.photo" cover></v-img>
@@ -9,7 +9,7 @@
       <v-col cols="4" sm="3">
         <v-chip>
           <v-icon start icon="mdi-account-outline"></v-icon>
-          {{ contact.name }}
+          {{ contact.name }} {{ contact.surname }}
         </v-chip>
       </v-col>
       <v-col cols="4" sm="3">

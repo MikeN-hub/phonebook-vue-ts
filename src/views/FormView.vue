@@ -178,8 +178,6 @@ import { useDisplay } from 'vuetify'
 import { mustBeLatin } from '@/helpers/helpers'
 import { mustBeDigits } from '@/helpers/helpers'
 import { v4 as uuidv4 } from 'uuid'
-import {isValidHttpUrl} from '@/helpers/helpers'
-import {TypeSocial} from '@/Models/Icontact'
 
 export default defineComponent({
   setup() {
@@ -217,7 +215,6 @@ export default defineComponent({
           /^[A-Z0-9._%+-]+@[A-Z0-9-]+.+.[A-Z]{2,4}$/i.test(v) ||
           'Некорректный адрес электронной почты',
       ],
-      // socialRules: [(v: any) => 'Social must be valid'],
     }
 
     const checkEmail = (e: any) => {
@@ -267,22 +264,18 @@ export default defineComponent({
     }
 
     const refForm: any = ref()
-    const valid = ref(true)
+    const valid = ref(false)
 
     const onSubmit = async () => {
       let result = await refForm.value.validate()
+      console.log(result)
       if (result.valid) {
         state.id = uuidv4()
-        // for(let key in state.social) {
-        //   if(isValidHttpUrl(state.social[key as keyof TypeSocial])) {
-        //     console.log(key, state.social[key as keyof TypeSocial], 'yes');
-        //   }else{
-        //     console.log(key, state.social[key as keyof TypeSocial], 'no');
-        //   }
-        // }
         store.commit('ADD_CONTACT', state)
+        router.push('/')
+      } else {
+        alert('Error!')
       }
-      router.push('/')
     }
 
     const showAlert = ref(false)
